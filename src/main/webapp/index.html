@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+	$(document).ready(function() {
+    	get_list();
+        
+        $('#add_button').click(function() {
+        	add_example();        	
+        });
+
+        $('#search_button').click(function() {
+        	get_list($('#search_text').val());
+        });
+        
+        $('#list_button').click(function() {
+        	get_list();        	
+        });
+	});
+
+	// get list function
+	function get_list(search) {
+		show();
+		
+    	var search_url = "/associations/rest/list";
+    	if (search != null) {
+    		search_url += ("?search=" + search);
+    	} 
+
+        $.get(search_url, function(data, status) {
+            var list = $.parseJSON(data);
+            
+    		var $table = $('<table border=0/>');    		
+			$table.append('<tr><td></td><td></td><td>ID</td><td>Data</td></tr>');
+            for(var i =0; i<list.length; i++) {
+            	edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
+            	delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
+    			$table.append('<tr><td>' + edit_url + '</td><td>' + delete_url + '</td><td>' + list[i].id + '</td><td>' + list[i].data + '</td></tr>');
+            }
+    		$('#list').html($table);
+    	});		
+	}
+	
+	// add example function
+	function add_example() {
+		hide();
+		
+		var $table = $('<table border=0/>');    		
+		$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10"></td></tr>');
+		$table.append('<tr><td>Data</td><td><input id="data_text" type="text" name="data" size="20"></td></tr>');
+		$table.append('<tr><td colspan="2"><button id="submit_button">add example</button></td></tr>');	
+		$('#list').html($table);
+		
+		$('#submit_button').click(function() {
+			var url = "/associations/rest/add";
+			var posting = $.post(url, { id: $('#id_text').val(), data: $('#data_text').val() } );
+			posting.done(function(data) {
+				alert(data);
+				get_list();
+			});
+        });
+	}
+	
+	// delete example function
+	function delete_example(id) {
+		var delete_url = "/associations/rest/delete?id=" + id;		
+		$.ajax({
+		    url: delete_url,
+		    type: 'DELETE',
+		    success: function(result) {
+				alert(result);
+				get_list();		    	
+		    }
+		});
+	}
+
+	// edit example function
+	function edit_example(id) {
+    	var get_url = "/associations/rest/get?id=" + id;
+
+        $.get(get_url, function(data, status) {
+            var example = $.parseJSON(data);
+
+    		var $table = $('<table border=0/>');    		
+    		$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10" value="' + example.id + '" disabled></td></tr>');
+    		$table.append('<tr><td>Data</td><td><input id="data_text" type="text" name="data" size="20" value="' + example.data + '"></td></tr>');
+    		$table.append('<tr><td colspan="2"><button id="submit_button">update example</button></td></tr>');	
+    		$('#list').html($table);
+
+    		$('#submit_button').click(function() {
+    			var edit_url = "/associations/rest/edit";
+    			$.ajax({
+    		    	url: edit_url,
+    		    	type: 'PUT',
+    		    	data: { id: example.id, data: $('#data_text').val() },
+    		    	success: function(result) {
+    					alert(result);
+    					get_list();		    	
+    		    	}
+    			});
+    		});
+    	});				
+	}
+
+	// hide some stuff
+	function hide() {
+		$('#add_button').hide();
+		$('#list_button').hide();
+		$('#search_text').hide();
+		$('#search_button').hide();		
+	}
+	
+	// show some stuff
+	function show() {
+		$('#add_button').show();
+		$('#list_button').show();
+		$('#search_text').show();
+		$('#search_button').show();		
+	}
+</script>
+</head>
+<body>
+    <table>
+    	<tr>
+    		<td><button id="add_button">add example</button></td>
+    		<td><button id="list_button">show all examples</button></td>
+    		<td>&nbsp;&nbsp;&nbsp;</td>
+    		<td><input type="text" id="search_text" size=20><button id="search_button">search</button></td>
+    	</tr>
+    </table>
+	<div id="list"></div>
+</body>
+</html>
