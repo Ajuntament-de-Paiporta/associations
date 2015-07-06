@@ -13,16 +13,16 @@ public class DBManager {
 	public ArrayList<Example> getExamples(Connection connection) throws Exception {
 		ArrayList<Example> examples = new ArrayList<Example>();
 		try	{
-			PreparedStatement ps = connection.prepareStatement("SELECT id, data FROM example ORDER BY id ASC");
+			PreparedStatement ps = connection.prepareStatement("SELECT id, name, telf FROM examples ORDER BY id ASC");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Example ex = new Example();
 				ex.setId(rs.getInt("id"));
-				ex.setData(rs.getString("data"));
+				ex.setName(rs.getString("name"));
+				ex.setTelf(rs.getInt("telf"));
 				examples.add(ex);
 			}
 			return examples;
-			
 		} catch(Exception e) {
 			throw e;
 		}
@@ -32,11 +32,12 @@ public class DBManager {
 	public Example getExampleById(Connection connection, int id) throws Exception {
 		Example ex = new Example();
 		try	{
-			PreparedStatement ps = connection.prepareStatement("SELECT id, data FROM example WHERE id = " + id + " ORDER BY id ASC");
+			PreparedStatement ps = connection.prepareStatement("SELECT id, name, telf FROM examples WHERE id = " + id + " ORDER BY id ASC");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				ex.setId(rs.getInt("id"));
-				ex.setData(rs.getString("data"));
+				ex.setName(rs.getString("name"));
+				ex.setTelf(rs.getInt("telf"));
 				break;
 			}			
 		} catch(Exception e) {
@@ -48,18 +49,17 @@ public class DBManager {
 	// search examples
 	public ArrayList<Example> searchExamples(Connection connection, String search) throws Exception {
 		ArrayList<Example> examples = new ArrayList<Example>();
-		try	{
-			
-			PreparedStatement ps = connection.prepareStatement("SELECT id, data FROM example WHERE data LIKE '%" + search + "%' ORDER BY id ASC");
+		try	{			
+			PreparedStatement ps = connection.prepareStatement("SELECT id, name, telf FROM examples WHERE name LIKE '%" + search + "%' ORDER BY id ASC");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Example ex = new Example();
 				ex.setId(rs.getInt("id"));
-				ex.setData(rs.getString("data"));
+				ex.setName(rs.getString("name"));
+				ex.setTelf(rs.getInt("telf"));
 				examples.add(ex);
 			}
 			return examples;
-			
 		} catch(Exception e) {
 			throw e;
 		}
@@ -67,16 +67,17 @@ public class DBManager {
 	
 	// add an example
 	public void addExample(Connection connection, Example example) throws Exception {	
-		String sql = "INSERT INTO example (id, data) VALUES (?, ?)";
+		String sql = "INSERT INTO examples (name, telf) VALUES (?, ?)";
 		PreparedStatement ps = connection.prepareStatement(sql);
-		ps.setInt(1, example.getId());
-		ps.setString(2, example.getData());
+		//ps.setInt(1, example.getId());
+		ps.setString(1, example.getName());
+		ps.setInt(2, example.getTelf());
 		ps.executeUpdate();
 	}
 	
 	// delete an example
 	public void deleteExample(Connection connection, int id) throws Exception {	
-		String sql = "DELETE FROM example WHERE id = ?";
+		String sql = "DELETE FROM examples WHERE id = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.executeUpdate();
@@ -84,10 +85,11 @@ public class DBManager {
 	
 	// update an example
 	public void updateExample(Connection connection, Example example) throws Exception {	
-		String sql = "UPDATE example set data = ? WHERE id = ?";
+		String sql = "UPDATE examples set name = ?, telf = ? WHERE id = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
-		ps.setString(1, example.getData());
-		ps.setInt(2, example.getId());
+		ps.setString(1, example.getName());
+		ps.setInt(2, example.getTelf());
+		ps.setInt(3, example.getId());
 		ps.executeUpdate();
 	}	
 }

@@ -34,11 +34,11 @@
             var list = $.parseJSON(data);
             
     		var $table = $('<table border=0/>');    		
-			$table.append('<tr><td></td><td></td><td>ID</td><td>Data</td></tr>');
+			$table.append('<tr><td></td><td></td><td>ID</td><td>Name</td><td>Telf.</td></tr>');
             for(var i =0; i<list.length; i++) {
             	edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
             	delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
-    			$table.append('<tr><td>' + edit_url + '</td><td>' + delete_url + '</td><td>' + list[i].id + '</td><td>' + list[i].data + '</td></tr>');
+    			$table.append('<tr><td>' + edit_url + '</td><td>' + delete_url + '</td><td>' + list[i].id + '</td><td>' + list[i].name + '</td><td>' + list[i].telf + '</td></tr>');
             }
     		$('#list').html($table);
     	});		
@@ -49,14 +49,15 @@
 		hide();
 		
 		var $table = $('<table border=0/>');    		
-		$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10"></td></tr>');
-		$table.append('<tr><td>Data</td><td><input id="data_text" type="text" name="data" size="20"></td></tr>');
+		//$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10"></td></tr>');
+		$table.append('<tr><td>Name</td><td><input id="name_text" type="text" name="name" size="20"></td></tr>');
+		$table.append('<tr><td>Telf.</td><td><input id="telf_text" type="text" name="telf" size="20"></td></tr>');
 		$table.append('<tr><td colspan="2"><button id="submit_button">add example</button></td></tr>');	
 		$('#list').html($table);
 		
 		$('#submit_button').click(function() {
 			var url = "/associations/rest/add";
-			var posting = $.post(url, { id: $('#id_text').val(), data: $('#data_text').val() } );
+			var posting = $.post(url, { name: $('#name_text').val(), telf: $('#telf_text').val() } );
 			posting.done(function(data) {
 				alert(data);
 				get_list();
@@ -86,7 +87,8 @@
 
     		var $table = $('<table border=0/>');    		
     		$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10" value="' + example.id + '" disabled></td></tr>');
-    		$table.append('<tr><td>Data</td><td><input id="data_text" type="text" name="data" size="20" value="' + example.data + '"></td></tr>');
+    		$table.append('<tr><td>Name</td><td><input id="name_text" type="text" name="name" size="20" value="' + example.name + '"></td></tr>');
+    		$table.append('<tr><td>Telf.</td><td><input id="telf_text" type="text" name="telf" size="20" value="' + example.telf + '"></td></tr>');
     		$table.append('<tr><td colspan="2"><button id="submit_button">update example</button></td></tr>');	
     		$('#list').html($table);
 
@@ -95,7 +97,7 @@
     			$.ajax({
     		    	url: edit_url,
     		    	type: 'PUT',
-    		    	data: { id: example.id, data: $('#data_text').val() },
+    		    	data: { id: example.id, name: $('#name_text').val(), telf: $('#telf_text').val() },
     		    	success: function(result) {
     					alert(result);
     					get_list();		    	
