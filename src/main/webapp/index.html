@@ -4,22 +4,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="js/jquery-1.11.3.min.js"></script>
+<!--
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>  
+-->
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+ 
 <script>
-	var login=0;
-	var email_info;
+	var login_email = undefined;
+	var login_token = undefined;
 	
 	$(document).ready(function() {
         show_logininfo();
     	get_list();
         
-    	if (login > 0) {
-        	$('#add_button').click(function() {
-        		add_example();        	
-        	});
-    		$('#add_button').attr("disabled", false);
-    	} else {
+    	if (login_token == undefined) {
     		$('#add_button').attr("disabled", true);
+    	} else {
+    		$('#add_button').attr("disabled", false);
     	}
+    	$('#add_button').click(function() {
+    		add_example();        	
+    	});
 
         $('#search_button').click(function() {
         	get_list($('#search_text').val());
@@ -46,12 +51,12 @@
     		var $table = $('<table border=0/>');    		
 			$table.append('<tr><td></td><td></td><td>ID</td><td>Name</td><td>Telf.</td></tr>');
             for(var i =0; i<list.length; i++) {
-            	if (login > 0) {
-            		edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
-            		delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
-            	} else {
+            	if (login_token == undefined) {
             		edit_url = '<button disabled>edit</button>';
             		delete_url = '<button disabled>delete</button>';
+            	} else {
+            		edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
+            		delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
             	}
     			$table.append('<tr><td>' + edit_url + '</td><td>' + delete_url + '</td><td>' + list[i].id + '</td><td>' + list[i].name + '</td><td>' + list[i].telf + '</td></tr>');
             }
@@ -124,14 +129,22 @@
 
 	// display login info
 	function show_logininfo() {
-		if (login > 0) {
-			alert("User logged!!");
-		} else {
+    	if (login_token == undefined) {
     		$('#login_info').html('<button id="login_button">login</button>');
             $('#login_button').click(function() {
             	login_user();        	
             });
+		} else {
+    		$('#login_info').html(login_email + '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<button id="logout_button">logout</button>');
+            $('#logout_button').click(function() {
+				login_token = undefined;
+				login_email = undefined;
+	    		$('#add_button').attr("disabled", true);
+				get_list();
+				show_logininfo();
+            });
 		}
+		$('#login_info').show();
 	}
 	
 	// login an user
@@ -146,13 +159,25 @@
 		$('#list').html($table);
 		
 		$('#submit_login_button').click(function() {
-			var url = "/associations/rest/login";
-			var posting = $.post(url, { email: $('#email_text').val(), pass: $('#pass_password').val() } );
-			posting.done(function(data) {
-				alert(data);
-				get_list();
-				login = data;
-				show_logininfo();
+			var login_url = "/associations/rest/login";
+			var email = $('#email_text').val();
+
+			$.ajax({
+		    	url: login_url,
+		    	type: 'PUT',
+		    	data: { email: email, pass: '' + CryptoJS.SHA1($('#pass_password').val()) },
+		    	success: function(result) {
+					alert("success: " + result);
+					login_token = result;
+					login_email = email;
+					get_list();
+					show_logininfo();
+		    		$('#add_button').attr("disabled", false);
+
+		    	},
+		    	error: function (jqXHR, textStatus, errorThrown) {
+	                 alert("error: " + jqXHR.responseText);
+		     	}
 			});
         });
 	}

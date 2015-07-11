@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import es.paiporta.dto.Example;
+import es.paiporta.dto.User;
 
 public class DBManager {
 		
@@ -91,5 +93,63 @@ public class DBManager {
 		ps.setInt(2, example.getTelf());
 		ps.setInt(3, example.getId());
 		ps.executeUpdate();
+	}
+
+	public User getUser(Connection connection, String email, String password) throws Exception {
+		try	{
+			int userId;
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?");
+			ps.setString(1, email);
+			ps.setString(2, password);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setEmail(email);
+				user.setPassword(password);
+				user.setRol(rs.getInt("rol"));
+				user.setTokenId(rs.getString("token_id"));
+				user.setTokenCreationTime(rs.getString("token_creation_time"));
+				return user;
+			}
+			return null;
+		} catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	public User getUserById(Connection connection, int userId) throws Exception {
+		try	{
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setRol(rs.getInt("rol"));
+				user.setTokenId(rs.getString("token_id"));
+				user.setTokenCreationTime(rs.getString("token_creation_time"));
+				return user;
+			}
+			return null;
+		} catch(Exception e) {
+			throw e;
+		}
+	}
+
+	
+	public void updateUserTime(Connection connection, int userId) throws Exception {
+		try	{
+			String tokenId = UUID.randomUUID().toString();
+			PreparedStatement ps = connection.prepareStatement("UPDATE users set token_id = ?, token_creation_time = now() WHERE id = ?");
+			ps.setString(1, tokenId);
+			ps.setInt(2, userId);
+			ps.executeUpdate();
+			ps.close();
+		} catch(Exception e) {
+			throw e;
+		}
 	}	
 }

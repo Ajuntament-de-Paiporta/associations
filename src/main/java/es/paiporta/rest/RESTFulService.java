@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import es.paiporta.dao.DBManager;
 import es.paiporta.dao.Database;
 import es.paiporta.dto.Example;
+import es.paiporta.dto.User;
 
 @Path("/")
 public class RESTFulService {
@@ -137,6 +138,30 @@ public class RESTFulService {
 		}
 
 		return Response.status(200).entity("SUCCESS: (data, telf) = (" + name + ", " + telf + ")").build();
+	}
+
+	@PUT
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response login(@FormParam("email") String email, @FormParam("pass") String password) throws IOException {
+		try {
+			Database db = new Database();
+			DBManager dbManager = new DBManager();
+
+			Connection conn = db.GetConnection();
+			User user = dbManager.getUser(conn, email, password);
+						
+			if (user == null) {
+				return Response.status(403).entity("ERROR: invalid user (email, password) = (" + email + ", " + password + ")").build();			
+			} else {
+				dbManager.updateUserTime(conn, user.getId());
+				user = dbManager.getUserById(conn, user.getId());
+				//return Response.status(200).entity("SUCCESS: (email, token_id, token_creation_time) = (" + email + ", " + user.getTokenId() + ", " + user.getTokenCreationTime() + ")").build();
+				return Response.status(200).entity(user.getTokenId()).build();
+			}			
+		} catch (Exception e) {
+			return Response.status(500).entity("ERROR: exception = " + e.getMessage()).build();
+		}
 	}
 
 }

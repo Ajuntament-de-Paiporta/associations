@@ -31,6 +31,34 @@ mysql> select * from examples;
 |  2 | manolo | 987654321 |
 +----+--------+-----------+
 2 rows in set (0.00 sec)
+
+mysql> create table users(id int auto_increment, email varchar(256), password varchar(100), rol int, token_id varchar(100), token_creation_time timestamp, primary key (id));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> describe users;
++---------------------+--------------+------+-----+-------------------+-----------------------------+
+| Field               | Type         | Null | Key | Default           | Extra                       |
++---------------------+--------------+------+-----+-------------------+-----------------------------+
+| id                  | int(11)      | NO   | PRI | NULL              | auto_increment              |
+| email               | varchar(256) | YES  |     | NULL              |                             |
+| password            | varchar(100) | YES  |     | NULL              |                             |
+| rol                 | int(11)      | YES  |     | NULL              |                             |
+| token_id            | varchar(100) | YES  |     | NULL              |                             |
+| token_creation_time | timestamp    | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++---------------------+--------------+------+-----+-------------------+-----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into users(email, password, rol) values ("joaquintarraga@gmail.com", sha1("toto"), 1);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from users;
++----+--------------------------+------------------------------------------+------+----------+---------------------+
+| id | email                    | password                                 | rol  | token_id | token_creation_time |
++----+--------------------------+------------------------------------------+------+----------+---------------------+
+|  1 | joaquintarraga@gmail.com | 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32c |    1 | NULL     | 2015-07-11 09:28:12 |
++----+--------------------------+------------------------------------------+------+----------+---------------------+
+1 row in set (0.00 sec)
+
 */
 
 public class Example {
