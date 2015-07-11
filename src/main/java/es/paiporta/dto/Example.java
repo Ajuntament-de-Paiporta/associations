@@ -8,6 +8,12 @@ Query OK, 1 row affected (0.00 sec)
 mysql> use associations;
 Database changed
 
+mysql> create user 'admin_assoc'@'localhost' identified by 'assoc2015';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant all on associations.* to 'admin_assoc'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
 mysql> create table examples(id int auto_increment, name varchar(100), telf int, primary key (id));
 Query OK, 0 rows affected (0.07 sec)
 

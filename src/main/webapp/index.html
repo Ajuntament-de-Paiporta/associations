@@ -5,12 +5,21 @@
 <title>Insert title here</title>
 <script src="js/jquery-1.11.3.min.js"></script>
 <script>
+	var login=0;
+	var email_info;
+	
 	$(document).ready(function() {
+        show_logininfo();
     	get_list();
         
-        $('#add_button').click(function() {
-        	add_example();        	
-        });
+    	if (login > 0) {
+        	$('#add_button').click(function() {
+        		add_example();        	
+        	});
+    		$('#add_button').attr("disabled", false);
+    	} else {
+    		$('#add_button').attr("disabled", true);
+    	}
 
         $('#search_button').click(function() {
         	get_list($('#search_text').val());
@@ -19,6 +28,7 @@
         $('#list_button').click(function() {
         	get_list();        	
         });
+        
 	});
 
 	// get list function
@@ -36,8 +46,13 @@
     		var $table = $('<table border=0/>');    		
 			$table.append('<tr><td></td><td></td><td>ID</td><td>Name</td><td>Telf.</td></tr>');
             for(var i =0; i<list.length; i++) {
-            	edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
-            	delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
+            	if (login > 0) {
+            		edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
+            		delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
+            	} else {
+            		edit_url = '<button disabled>edit</button>';
+            		delete_url = '<button disabled>delete</button>';
+            	}
     			$table.append('<tr><td>' + edit_url + '</td><td>' + delete_url + '</td><td>' + list[i].id + '</td><td>' + list[i].name + '</td><td>' + list[i].telf + '</td></tr>');
             }
     		$('#list').html($table);
@@ -107,6 +122,42 @@
     	});				
 	}
 
+	// display login info
+	function show_logininfo() {
+		if (login > 0) {
+			alert("User logged!!");
+		} else {
+    		$('#login_info').html('<button id="login_button">login</button>');
+            $('#login_button').click(function() {
+            	login_user();        	
+            });
+		}
+	}
+	
+	// login an user
+	function login_user() {
+		hide();
+		$('#login_info').hide();
+		
+		var $table = $('<table border=0/>');    		
+		$table.append('<tr><td>E-mail</td><td><input id="email_text" type="text" name="email" size="20"></td></tr>');
+		$table.append('<tr><td>Password</td><td><input id="pass_password" type="password" name="pass" size="20"></td></tr>');
+		$table.append('<tr><td colspan="2"><button id="submit_login_button">log in</button></td></tr>');	
+		$('#list').html($table);
+		
+		$('#submit_login_button').click(function() {
+			var url = "/associations/rest/login";
+			var posting = $.post(url, { email: $('#email_text').val(), pass: $('#pass_password').val() } );
+			posting.done(function(data) {
+				alert(data);
+				get_list();
+				login = data;
+				show_logininfo();
+			});
+        });
+	}
+	
+	
 	// hide some stuff
 	function hide() {
 		$('#add_button').hide();
@@ -125,14 +176,20 @@
 </script>
 </head>
 <body>
-    <table>
+    <table border="0">
+    	<tr>
+    		<td colspan="4" align="right"><div id="login_info"></div></td>
+    	</tr>
     	<tr>
     		<td><button id="add_button">add example</button></td>
     		<td><button id="list_button">show all examples</button></td>
     		<td>&nbsp;&nbsp;&nbsp;</td>
-    		<td><input type="text" id="search_text" size=20><button id="search_button">search</button></td>
+    		<td align="right"><input type="text" id="search_text" size=20><button id="search_button">search</button></td>
+    	</tr>
+    	<tr>
+    		<td colspan="4"><div id="list"></div></td>
     	</tr>
     </table>
-	<div id="list"></div>
+	
 </body>
 </html>
