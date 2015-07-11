@@ -76,11 +76,16 @@
 		$('#list').html($table);
 		
 		$('#submit_button').click(function() {
-			var url = "/associations/rest/add";
-			var posting = $.post(url, { name: $('#name_text').val(), telf: $('#telf_text').val() } );
-			posting.done(function(data) {
-				alert(data);
-				get_list();
+			var add_url = "/associations/rest/add";
+			$.ajax({
+		    	url: add_url,
+		    	headers: {'token_id': login_token, 'email': login_email },
+		    	type: 'POST',
+		    	data: { name: $('#name_text').val(), telf: $('#telf_text').val() },
+		    	success: function(result) {
+					alert(result);
+					get_list();		    	
+		    	}
 			});
         });
 	}
@@ -90,6 +95,7 @@
 		var delete_url = "/associations/rest/delete?id=" + id;		
 		$.ajax({
 		    url: delete_url,
+	    	headers: {'token_id': login_token, 'email': login_email },
 		    type: 'DELETE',
 		    success: function(result) {
 				alert(result);
@@ -116,6 +122,7 @@
     			var edit_url = "/associations/rest/edit";
     			$.ajax({
     		    	url: edit_url,
+    		    	headers: {'token_id': login_token, 'email': login_email },
     		    	type: 'PUT',
     		    	data: { id: example.id, name: $('#name_text').val(), telf: $('#telf_text').val() },
     		    	success: function(result) {
