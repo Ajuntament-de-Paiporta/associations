@@ -82,6 +82,8 @@ public class RESTFulService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response newExample(@FormParam("id") int id, @FormParam("name") String name, @FormParam("telf") int telf) throws IOException {
 
+		// check expiration time
+		
 		Example example = new Example();
 		example.setId(id);
 		example.setName(name);
