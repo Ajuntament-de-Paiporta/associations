@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Asociaciones de Paiporta</title>
 <script src="js/jquery-1.11.3.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -38,7 +38,7 @@
             console.log("list = " + list);
             
     		var $table = $('<table border=0/>');    		
-			$table.append('<tr><td></td><td></td><td>ID</td><td>Data</td></tr>');
+			$table.append('<tr><td></td><td></td><td>ID</td><td></td><td>Nombre</td></tr>');
             for(var i =0; i<list.length; i++) {
             	edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
             	delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
@@ -61,7 +61,7 @@
 		
 		$('#submit_button').click(function() {
 			var url = "/associations/rest/add";
-			var posting = $.post(url, { id: $('#id_text').val(), name: $('#name_text').val(), address: $('#address_text').val() } );
+			var posting = $.post(url, { name: $('#name_text').val(), address: $('#address_text').val() } );
 			posting.done(function(data) {
 				alert(data);
 				get_list();
@@ -128,7 +128,6 @@
 </script>
 </head>
 <body>
-hello !!!
     <table>
     	<tr>
     		<td><button id="add_button">add example</button></td>

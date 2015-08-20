@@ -10,7 +10,7 @@ import es.paiporta.dto.Association;
 public class DBManager {
 		
 	// get all examples
-	public ArrayList<Association> getExamples(Connection connection) throws Exception {
+	public ArrayList<Association> getAssociations(Connection connection) throws Exception {
 		ArrayList<Association> examples = new ArrayList<Association>();
 		try	{
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM association ORDER BY id ASC");
@@ -29,12 +29,12 @@ public class DBManager {
 				ex.setWebpage(rs.getString("webpage"));
 				ex.setFacebook(rs.getString("facebook"));
 				ex.setTwitter(rs.getString("twitter"));
-				ex.setPresident_name(rs.getString("president_name"));
-				ex.setPresident_email(rs.getString("president_email"));
-				ex.setPresident_phone(rs.getInt("president_phone"));
-				ex.setSecretary_name(rs.getString("secretary_name"));
-				ex.setSecretary_email(rs.getString("secretary_email"));
-				ex.setSecretary_phone(rs.getInt("secretary_phone"));
+				ex.setPresidentName(rs.getString("presidentName"));
+				ex.setPresidentEmail(rs.getString("presidentEmail"));
+				ex.setPresidentPhone(rs.getInt("presidentPhone"));
+				ex.setSecretaryName(rs.getString("secretaryName"));
+				ex.setSecretaryEmail(rs.getString("secretaryEmail"));
+				ex.setSecretaryPhone(rs.getInt("secretaryPhone"));
 				ex.setActive(rs.getBoolean("active"));
 				examples.add(ex);
 			}
@@ -46,7 +46,7 @@ public class DBManager {
 	}
 	
 	// get example by id
-	public Association getExampleById(Connection connection, int id) throws Exception {
+	public Association getAssociationById(Connection connection, int id) throws Exception {
 		Association ex = new Association();
 		try	{
 			PreparedStatement ps = connection.prepareStatement("SELECT * FROM association WHERE id = " + id + " ORDER BY id ASC");
@@ -64,12 +64,12 @@ public class DBManager {
 				ex.setWebpage(rs.getString("webpage"));
 				ex.setFacebook(rs.getString("facebook"));
 				ex.setTwitter(rs.getString("twitter"));
-				ex.setPresident_name(rs.getString("president_name"));
-				ex.setPresident_email(rs.getString("president_email"));
-				ex.setPresident_phone(rs.getInt("president_phone"));
-				ex.setSecretary_name(rs.getString("secretary_name"));
-				ex.setSecretary_email(rs.getString("secretary_email"));
-				ex.setSecretary_phone(rs.getInt("secretary_phone"));
+				ex.setPresidentName(rs.getString("presidentName"));
+				ex.setPresidentEmail(rs.getString("presidentEmail"));
+				ex.setPresidentPhone(rs.getInt("presidentPhone"));
+				ex.setSecretaryName(rs.getString("secretaryName"));
+				ex.setSecretaryEmail(rs.getString("secretaryEmail"));
+				ex.setSecretaryPhone(rs.getInt("secretaryPhone"));
 				ex.setActive(rs.getBoolean("active"));
 				break;
 			}			
@@ -80,7 +80,7 @@ public class DBManager {
 	}
 	
 	// search examples
-	public ArrayList<Association> searchExamples(Connection connection, String search) throws Exception {
+	public ArrayList<Association> searchAssociation(Connection connection, String search) throws Exception {
 		ArrayList<Association> examples = new ArrayList<Association>();
 		try	{
 			
@@ -100,12 +100,12 @@ public class DBManager {
 				ex.setWebpage(rs.getString("webpage"));
 				ex.setFacebook(rs.getString("facebook"));
 				ex.setTwitter(rs.getString("twitter"));
-				ex.setPresident_name(rs.getString("president_name"));
-				ex.setPresident_email(rs.getString("president_email"));
-				ex.setPresident_phone(rs.getInt("president_phone"));
-				ex.setSecretary_name(rs.getString("secretary_name"));
-				ex.setSecretary_email(rs.getString("secretary_email"));
-				ex.setSecretary_phone(rs.getInt("secretary_phone"));
+				ex.setPresidentName(rs.getString("presidentName"));
+				ex.setPresidentEmail(rs.getString("presidentEmail"));
+				ex.setPresidentPhone(rs.getInt("presidentPhone"));
+				ex.setSecretaryName(rs.getString("secretaryName"));
+				ex.setSecretaryEmail(rs.getString("secretaryEmail"));
+				ex.setSecretaryPhone(rs.getInt("secretaryPhone"));
 				ex.setActive(rs.getBoolean("active"));
 				examples.add(ex);
 			}
@@ -117,8 +117,8 @@ public class DBManager {
 	}
 	
 	// add an example
-	public void addExample(Connection connection, Association example) throws Exception {	
-		String sql = "INSERT INTO association (id, name, email, phone, address, postalcode, city, longitude, latitude, webpage, facebook, twitter, president_name, president_email, president_phone, secretary_name, secretary_email, active) "
+	public void addAssociation(Connection connection, Association example) throws Exception {	
+		String sql = "INSERT INTO association (id, name, email, phone, address, postalcode, city, longitude, latitude, webpage, facebook, twitter, presidentName, presidentEmail, presidentPhone, secretaryName, secretaryEmail, secretaryPhone, active) "
 				+ "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setInt(1, example.getId());
@@ -133,18 +133,18 @@ public class DBManager {
 		ps.setString(10, example.getWebpage());
 		ps.setString(11, example.getFacebook());
 		ps.setString(12, example.getTwitter());
-		ps.setString(13, example.getPresident_name());
-		ps.setString(14, example.getPresident_email());
-		ps.setInt(15, example.getPresident_phone());
-		ps.setString(16, example.getSecretary_name());
-		ps.setString(17, example.getSecretary_email());
-		ps.setInt(18, example.getSecretary_phone());
+		ps.setString(13, example.getPresidentName());
+		ps.setString(14, example.getPresidentEmail());
+		ps.setInt(15, example.getPresidentPhone());
+		ps.setString(16, example.getSecretaryName());
+		ps.setString(17, example.getSecretaryEmail());
+		ps.setInt(18, example.getSecretaryPhone());
 		ps.setBoolean(19, example.isActive());
 		ps.executeUpdate();
 	}
 	
 	// delete an example
-	public void deleteExample(Connection connection, int id) throws Exception {	
+	public void deleteAssociation(Connection connection, int id) throws Exception {	
 		String sql = "DELETE FROM association WHERE id = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setInt(1, id);
@@ -152,13 +152,13 @@ public class DBManager {
 	}
 	
 	// update an example
-	public void updateExample(Connection connection, Association example) throws Exception {	
-		String sql = "UPDATE association set president_name = ? AND set president_email AND set president_phone WHERE id = ?";
+	public void updateAssociation(Connection connection, Association example) throws Exception {	
+		String sql = "UPDATE association set presidentName = ? AND set presidentEmail AND set presidentPhone WHERE id = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setInt(1, example.getId());
-		ps.setString(2, example.getPresident_name());
-		ps.setString(3, example.getPresident_email());
-		ps.setInt(4, example.getPresident_phone());
+		ps.setString(2, example.getPresidentName());
+		ps.setString(3, example.getPresidentEmail());
+		ps.setInt(4, example.getPresidentPhone());
 		
 		ps.executeUpdate();
 	}	

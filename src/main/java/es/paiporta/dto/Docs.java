@@ -4,7 +4,7 @@ public class Docs {
 	private int id;
 	private String name;
 	private String path;
-	private int association_id;
+	private int associationId;
 	public int getId() {
 		return id;
 	}
@@ -23,11 +23,11 @@ public class Docs {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public int getAssociation_id() {
-		return association_id;
+	public int getAssociationId() {
+		return associationId;
 	}
-	public void setAssociation_id(int association_id) {
-		this.association_id = association_id;
+	public void setAssociationId(int associationId) {
+		this.associationId = associationId;
 	}
 	
 	

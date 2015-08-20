@@ -41,12 +41,12 @@ public class Association {
 	private String webpage;
 	private String facebook;
 	private String twitter;
-	private String president_name;
-	private String president_email;
-	private int president_phone;
-	private String secretary_name;
-	private String secretary_email;
-	private int secretary_phone;
+	private String presidentName;
+	private String presidentEmail;
+	private int presidentPhone;
+	private String secretaryName;
+	private String secretaryEmail;
+	private int secretaryPhone;
 	private boolean active;
 	
 	public String getName() {
@@ -114,42 +114,42 @@ public class Association {
 	}
 	public void setTwitter(String twitter) {
 		this.twitter = twitter;
+	}	
+	public String getPresidentName() {
+		return presidentName;
 	}
-	public String getPresident_name() {
-		return president_name;
+	public void setPresidentName(String presidentName) {
+		this.presidentName = presidentName;
 	}
-	public void setPresident_name(String president_name) {
-		this.president_name = president_name;
+	public String getPresidentEmail() {
+		return presidentEmail;
 	}
-	public String getPresident_email() {
-		return president_email;
+	public void setPresidentEmail(String presidentEmail) {
+		this.presidentEmail = presidentEmail;
 	}
-	public void setPresident_email(String president_email) {
-		this.president_email = president_email;
+	public int getPresidentPhone() {
+		return presidentPhone;
 	}
-	public int getPresident_phone() {
-		return president_phone;
+	public void setPresidentPhone(int presidentPhone) {
+		this.presidentPhone = presidentPhone;
 	}
-	public void setPresident_phone(int president_phone) {
-		this.president_phone = president_phone;
+	public String getSecretaryName() {
+		return secretaryName;
 	}
-	public String getSecretary_name() {
-		return secretary_name;
+	public void setSecretaryName(String secretaryName) {
+		this.secretaryName = secretaryName;
 	}
-	public void setSecretary_name(String secretary_name) {
-		this.secretary_name = secretary_name;
+	public String getSecretaryEmail() {
+		return secretaryEmail;
 	}
-	public String getSecretary_email() {
-		return secretary_email;
+	public void setSecretaryEmail(String secretaryEmail) {
+		this.secretaryEmail = secretaryEmail;
 	}
-	public void setSecretary_email(String secretary_email) {
-		this.secretary_email = secretary_email;
+	public int getSecretaryPhone() {
+		return secretaryPhone;
 	}
-	public int getSecretary_phone() {
-		return secretary_phone;
-	}
-	public void setSecretary_phone(int secretary_phone) {
-		this.secretary_phone = secretary_phone;
+	public void setSecretaryPhone(int secretaryPhone) {
+		this.secretaryPhone = secretaryPhone;
 	}
 	public boolean isActive() {
 		return active;

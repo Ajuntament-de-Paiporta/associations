@@ -6,7 +6,7 @@ public class Historic {
 	private int id;
 	private Date date;
 	private String info;
-	private int association_id;
+	private int associationId;
 	public int getId() {
 		return id;
 	}
@@ -25,11 +25,11 @@ public class Historic {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	public int getAssociation_id() {
-		return association_id;
+	public int getAssociationId() {
+		return associationId;
 	}
-	public void setAssociation_id(int association_id) {
-		this.association_id = association_id;
+	public void setAssociationId(int associationId) {
+		this.associationId = associationId;
 	}
 	
 	

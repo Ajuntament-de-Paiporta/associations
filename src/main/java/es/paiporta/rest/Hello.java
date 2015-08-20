@@ -69,9 +69,9 @@ public class Hello {
 			
 			Connection conn = db.GetConnection();
 			if (search != null) {
-				examples = dbManager.searchExamples(conn, search);
+				examples = dbManager.searchAssociation(conn, search);
 			} else {
-				examples = dbManager.getExamples(conn);
+				examples = dbManager.getAssociations(conn);
 			}
 
 			Gson gson = new Gson();
@@ -94,7 +94,7 @@ public class Hello {
 			DBManager dbManager = new DBManager();
 			
 			Connection conn = db.GetConnection();
-			Association example = dbManager.getExampleById(conn, id);
+			Association example = dbManager.getAssociationById(conn, id);
 			
 			Gson gson = new Gson();
 			output = gson.toJson(example);
@@ -112,8 +112,8 @@ public class Hello {
 	      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") int phone, @FormParam("address") String address,
 	      @FormParam("postalcode") int postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
 	      @FormParam("webpage") String webpage, @FormParam("facebook") String facebook, @FormParam("twitter") String twitter, 
-	      @FormParam("president_name") String president_name, @FormParam("president_email") String president_email, @FormParam("president_phone") int president_phone, 
-	      @FormParam("secretary_name") String secretary_name, @FormParam("secretary_email") String secretary_email, @FormParam("secretary_phone") int secretary_phone,
+	      @FormParam("presidentName") String presidentName, @FormParam("presidentEmail") String presidentEmail, @FormParam("presidentPhone") int presidentPhone, 
+	      @FormParam("secretaryName") String secretaryName, @FormParam("secretaryEmail") String secretaryEmail, @FormParam("secretaryPhone") int secretaryPhone,
 	      @FormParam("active") boolean active) throws IOException {
 		
 		Association example = new Association();
@@ -129,12 +129,12 @@ public class Hello {
 	    example.setWebpage(webpage);
 	    example.setFacebook(facebook);
 	    example.setTwitter(twitter);
-	    example.setPresident_name(president_name);
-	    example.setPresident_email(president_email);
-	    example.setPresident_phone(president_phone);
-	    example.setSecretary_name(secretary_name);
-	    example.setSecretary_email(secretary_email);
-	    example.setSecretary_phone(secretary_phone);
+	    example.setPresidentName(presidentName);
+	    example.setPresidentEmail(presidentEmail);
+	    example.setPresidentPhone(presidentPhone);
+	    example.setSecretaryName(secretaryName);
+	    example.setSecretaryEmail(secretaryEmail);
+	    example.setSecretaryPhone(secretaryPhone);
 	    example.setActive(active);
 	    
 
@@ -143,7 +143,7 @@ public class Hello {
 	    	DBManager dbManager = new DBManager();
 		
 	    	Connection conn = db.GetConnection();
-	    	dbManager.addExample(conn, example);
+	    	dbManager.addAssociation(conn, example);
 	    } catch (Exception e) {
 	    	return Response.status(200).entity("ERROR: " + e.getMessage()).build();
 	    }
@@ -160,7 +160,7 @@ public class Hello {
 			DBManager dbManager = new DBManager();
 			
 			Connection conn = db.GetConnection();
-			dbManager.deleteExample(conn, id);
+			dbManager.deleteAssociation(conn, id);
 		} catch (Exception e) {
 	    	return Response.status(200).entity("ERROR: " + e.getMessage()).build();
 		}
@@ -175,8 +175,8 @@ public class Hello {
 		      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") int phone, @FormParam("address") String address,
 		      @FormParam("postalcode") int postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
 		      @FormParam("webpage") String webpage, @FormParam("facebook") String facebook, @FormParam("twitter") String twitter, 
-		      @FormParam("president_name") String president_name, @FormParam("president_email") String president_email, @FormParam("president_phone") int president_phone, 
-		      @FormParam("secretary_name") String secretary_name, @FormParam("secretary_email") String secretary_email, @FormParam("secretary_phone") int secretary_phone,
+		      @FormParam("presidentName") String presidentName, @FormParam("presidentEmail") String presidentEmail, @FormParam("presidentPhone") int presidentPhone, 
+		      @FormParam("secretaryName") String secretaryName, @FormParam("secretaryEmail") String secretaryEmail, @FormParam("secretaryPhone") int secretaryPhone,
 		      @FormParam("active") boolean active) throws IOException {
 		
 		Association example = new Association();
@@ -192,12 +192,12 @@ public class Hello {
 	    example.setWebpage(webpage);
 	    example.setFacebook(facebook);
 	    example.setTwitter(twitter);
-	    example.setPresident_name(president_name);
-	    example.setPresident_email(president_email);
-	    example.setPresident_phone(president_phone);
-	    example.setSecretary_name(secretary_name);
-	    example.setSecretary_email(secretary_email);
-	    example.setSecretary_phone(secretary_phone);
+	    example.setPresidentName(presidentName);
+	    example.setPresidentEmail(presidentEmail);
+	    example.setPresidentPhone(presidentPhone);
+	    example.setSecretaryName(secretaryName);
+	    example.setSecretaryEmail(secretaryEmail);
+	    example.setSecretaryPhone(secretaryPhone);
 	    example.setActive(active);
 
 	    try {
@@ -205,7 +205,7 @@ public class Hello {
 	    	DBManager dbManager = new DBManager();
 		
 	    	Connection conn = db.GetConnection();
-	    	dbManager.updateExample(conn, example);
+	    	dbManager.updateAssociation(conn, example);
 	    } catch (Exception e) {
 	    	return Response.status(200).entity("ERROR: " + e.getMessage()).build();
 	    }
