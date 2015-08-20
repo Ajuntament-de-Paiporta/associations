@@ -11,8 +11,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -21,7 +19,7 @@ import com.google.gson.Gson;
 
 import es.paiporta.dao.DBManager;
 import es.paiporta.dao.Database;
-import es.paiporta.dto.Example;
+import es.paiporta.dto.Association;
  /*
 @Path("/hello")
 public class Hello {
@@ -61,7 +59,7 @@ public class Hello {
 	@Path("/list")
 	public Response listExamples(@QueryParam("search") final String search) {
  
-		ArrayList<Example> examples = null;
+		ArrayList<Association> examples = null;
 		
 		String output = new String("");
  
@@ -96,7 +94,7 @@ public class Hello {
 			DBManager dbManager = new DBManager();
 			
 			Connection conn = db.GetConnection();
-			Example example = dbManager.getExampleById(conn, id);
+			Association example = dbManager.getExampleById(conn, id);
 			
 			Gson gson = new Gson();
 			output = gson.toJson(example);
@@ -111,11 +109,34 @@ public class Hello {
 	@Path("/add")	
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response newExample(@FormParam("id") int id,
-	      @FormParam("data") String data) throws IOException {
+	      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") int phone, @FormParam("address") String address,
+	      @FormParam("postalcode") int postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
+	      @FormParam("webpage") String webpage, @FormParam("facebook") String facebook, @FormParam("twitter") String twitter, 
+	      @FormParam("president_name") String president_name, @FormParam("president_email") String president_email, @FormParam("president_phone") int president_phone, 
+	      @FormParam("secretary_name") String secretary_name, @FormParam("secretary_email") String secretary_email, @FormParam("secretary_phone") int secretary_phone,
+	      @FormParam("active") boolean active) throws IOException {
 		
-	    Example example = new Example();
+		Association example = new Association();
 	    example.setId(id);
-	    example.setData(data);
+	    example.setName(name);
+	    example.setEmail(email);
+	    example.setAddress(address);
+	    example.setPhone(phone);
+	    example.setPostalcode(postalcode);
+	    example.setCity(city);
+	    example.setLongitude(longitude);
+	    example.setLatitude(latitude);
+	    example.setWebpage(webpage);
+	    example.setFacebook(facebook);
+	    example.setTwitter(twitter);
+	    example.setPresident_name(president_name);
+	    example.setPresident_email(president_email);
+	    example.setPresident_phone(president_phone);
+	    example.setSecretary_name(secretary_name);
+	    example.setSecretary_email(secretary_email);
+	    example.setSecretary_phone(secretary_phone);
+	    example.setActive(active);
+	    
 
 	    try {
 	    	Database db = new Database();
@@ -127,7 +148,7 @@ public class Hello {
 	    	return Response.status(200).entity("ERROR: " + e.getMessage()).build();
 	    }
 		
-	    return Response.status(200).entity("SUCCESS: data = " + data).build();
+	    return Response.status(200).entity("SUCCESS").build();
 	  }
 
 	@DELETE
@@ -150,12 +171,34 @@ public class Hello {
 	@PUT
 	@Path("/edit")	
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response updateExample(@FormParam("id") int id,
-	      @FormParam("data") String data) throws IOException {
+	public Response updateExample(@FormParam("id") int id, 
+		      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") int phone, @FormParam("address") String address,
+		      @FormParam("postalcode") int postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
+		      @FormParam("webpage") String webpage, @FormParam("facebook") String facebook, @FormParam("twitter") String twitter, 
+		      @FormParam("president_name") String president_name, @FormParam("president_email") String president_email, @FormParam("president_phone") int president_phone, 
+		      @FormParam("secretary_name") String secretary_name, @FormParam("secretary_email") String secretary_email, @FormParam("secretary_phone") int secretary_phone,
+		      @FormParam("active") boolean active) throws IOException {
 		
-	    Example example = new Example();
+		Association example = new Association();
 	    example.setId(id);
-	    example.setData(data);
+	    example.setName(name);
+	    example.setEmail(email);
+	    example.setAddress(address);
+	    example.setPhone(phone);
+	    example.setPostalcode(postalcode);
+	    example.setCity(city);
+	    example.setLongitude(longitude);
+	    example.setLatitude(latitude);
+	    example.setWebpage(webpage);
+	    example.setFacebook(facebook);
+	    example.setTwitter(twitter);
+	    example.setPresident_name(president_name);
+	    example.setPresident_email(president_email);
+	    example.setPresident_phone(president_phone);
+	    example.setSecretary_name(secretary_name);
+	    example.setSecretary_email(secretary_email);
+	    example.setSecretary_phone(secretary_phone);
+	    example.setActive(active);
 
 	    try {
 	    	Database db = new Database();
@@ -167,7 +210,7 @@ public class Hello {
 	    	return Response.status(200).entity("ERROR: " + e.getMessage()).build();
 	    }
 		
-	    return Response.status(200).entity("SUCCESS: data = " + data).build();
+	    return Response.status(200).entity("SUCCESS").build();
 	  }
 
 }

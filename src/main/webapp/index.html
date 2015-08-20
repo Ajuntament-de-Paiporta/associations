@@ -9,7 +9,7 @@
     	get_list();
         
         $('#add_button').click(function() {
-        	add_example();        	
+        	add_association();        	
         });
 
         $('#search_button').click(function() {
@@ -31,7 +31,11 @@
     	} 
 
         $.get(search_url, function(data, status) {
+        	alert(data);
             var list = $.parseJSON(data);
+            alert(list);
+            console.log("data = " + data);
+            console.log("list = " + list);
             
     		var $table = $('<table border=0/>');    		
 			$table.append('<tr><td></td><td></td><td>ID</td><td>Data</td></tr>');
@@ -45,18 +49,19 @@
 	}
 	
 	// add example function
-	function add_example() {
+	function add_association() {
 		hide();
 		
 		var $table = $('<table border=0/>');    		
-		$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10"></td></tr>');
-		$table.append('<tr><td>Data</td><td><input id="data_text" type="text" name="data" size="20"></td></tr>');
+		//$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10"></td></tr>');
+		$table.append('<tr><td>Nombre</td><td><input id="name_text" type="text" name="name" size="20"></td></tr>');
+		$table.append('<tr><td>Dirección</td><td><input id="address_text" type="text" name="address" size="30"></td></tr>');
 		$table.append('<tr><td colspan="2"><button id="submit_button">add example</button></td></tr>');	
 		$('#list').html($table);
 		
 		$('#submit_button').click(function() {
 			var url = "/associations/rest/add";
-			var posting = $.post(url, { id: $('#id_text').val(), data: $('#data_text').val() } );
+			var posting = $.post(url, { id: $('#id_text').val(), name: $('#name_text').val(), address: $('#address_text').val() } );
 			posting.done(function(data) {
 				alert(data);
 				get_list();
@@ -123,6 +128,7 @@
 </script>
 </head>
 <body>
+hello !!!
     <table>
     	<tr>
     		<td><button id="add_button">add example</button></td>
