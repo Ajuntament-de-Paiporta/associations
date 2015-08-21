@@ -109,11 +109,11 @@ public class Hello {
 	@Path("/add")	
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response newExample(@FormParam("id") int id,
-	      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") int phone, @FormParam("address") String address,
-	      @FormParam("postalcode") int postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
+	      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") String phone, @FormParam("address") String address,
+	      @FormParam("postalcode") String postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
 	      @FormParam("webpage") String webpage, @FormParam("facebook") String facebook, @FormParam("twitter") String twitter, 
-	      @FormParam("presidentName") String presidentName, @FormParam("presidentEmail") String presidentEmail, @FormParam("presidentPhone") int presidentPhone, 
-	      @FormParam("secretaryName") String secretaryName, @FormParam("secretaryEmail") String secretaryEmail, @FormParam("secretaryPhone") int secretaryPhone,
+	      @FormParam("presidentName") String presidentName, @FormParam("presidentEmail") String presidentEmail, @FormParam("presidentPhone") String presidentPhone, 
+	      @FormParam("secretaryName") String secretaryName, @FormParam("secretaryEmail") String secretaryEmail, @FormParam("secretaryPhone") String secretaryPhone,
 	      @FormParam("active") boolean active) throws IOException {
 		
 		Association example = new Association();
@@ -172,11 +172,11 @@ public class Hello {
 	@Path("/edit")	
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response updateExample(@FormParam("id") int id, 
-		      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") int phone, @FormParam("address") String address,
-		      @FormParam("postalcode") int postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
+		      @FormParam("name") String name, @FormParam("email") String email, @FormParam("phone") String phone, @FormParam("address") String address,
+		      @FormParam("postalcode") String postalcode, @FormParam("city") String city, @FormParam("longitude") String longitude, @FormParam("latitude") String latitude, 
 		      @FormParam("webpage") String webpage, @FormParam("facebook") String facebook, @FormParam("twitter") String twitter, 
-		      @FormParam("presidentName") String presidentName, @FormParam("presidentEmail") String presidentEmail, @FormParam("presidentPhone") int presidentPhone, 
-		      @FormParam("secretaryName") String secretaryName, @FormParam("secretaryEmail") String secretaryEmail, @FormParam("secretaryPhone") int secretaryPhone,
+		      @FormParam("presidentName") String presidentName, @FormParam("presidentEmail") String presidentEmail, @FormParam("presidentPhone") String presidentPhone, 
+		      @FormParam("secretaryName") String secretaryName, @FormParam("secretaryEmail") String secretaryEmail, @FormParam("secretaryPhone") String secretaryPhone,
 		      @FormParam("active") boolean active) throws IOException {
 		
 		Association example = new Association();

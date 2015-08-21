@@ -32,9 +32,9 @@ public class Association {
 	private int id;
 	private String name;
 	private String email;
-	private int phone;
+	private String phone;
 	private String address;
-	private int postalcode;
+	private String postalcode;
 	private String city;
 	private String longitude; // to show on google maps
 	private String latitude; // to show on google maps
@@ -43,10 +43,10 @@ public class Association {
 	private String twitter;
 	private String presidentName;
 	private String presidentEmail;
-	private int presidentPhone;
+	private String presidentPhone;
 	private String secretaryName;
 	private String secretaryEmail;
-	private int secretaryPhone;
+	private String secretaryPhone;
 	private boolean active;
 	
 	public String getName() {
@@ -61,10 +61,10 @@ public class Association {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getAddress() {
@@ -73,10 +73,10 @@ public class Association {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getPostalcode() {
+	public String getPostalcode() {
 		return postalcode;
 	}
-	public void setPostalcode(int postalcode) {
+	public void setPostalcode(String postalcode) {
 		this.postalcode = postalcode;
 	}
 	public String getCity() {
@@ -127,10 +127,10 @@ public class Association {
 	public void setPresidentEmail(String presidentEmail) {
 		this.presidentEmail = presidentEmail;
 	}
-	public int getPresidentPhone() {
+	public String getPresidentPhone() {
 		return presidentPhone;
 	}
-	public void setPresidentPhone(int presidentPhone) {
+	public void setPresidentPhone(String presidentPhone) {
 		this.presidentPhone = presidentPhone;
 	}
 	public String getSecretaryName() {
@@ -145,10 +145,10 @@ public class Association {
 	public void setSecretaryEmail(String secretaryEmail) {
 		this.secretaryEmail = secretaryEmail;
 	}
-	public int getSecretaryPhone() {
+	public String getSecretaryPhone() {
 		return secretaryPhone;
 	}
-	public void setSecretaryPhone(int secretaryPhone) {
+	public void setSecretaryPhone(String secretaryPhone) {
 		this.secretaryPhone = secretaryPhone;
 	}
 	public boolean isActive() {

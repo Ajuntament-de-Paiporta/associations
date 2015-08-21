@@ -24,7 +24,6 @@
 	// get list function
 	function get_list(search) {
 		show();
-		
     	var search_url = "/associations/rest/list";
     	if (search != null) {
     		search_url += ("?search=" + search);
@@ -33,16 +32,16 @@
         $.get(search_url, function(data, status) {
         	alert(data);
             var list = $.parseJSON(data);
-            alert(list);
+            //alert(list);
             console.log("data = " + data);
             console.log("list = " + list);
             
     		var $table = $('<table border=0/>');    		
-			$table.append('<tr><td></td><td></td><td>ID</td><td></td><td>Nombre</td></tr>');
+			$table.append('<tr><td></td><td></td><td>ID</td><td>  </td><td>  </td><td>Nombre</td></tr>');
             for(var i =0; i<list.length; i++) {
             	edit_url = '<button onClick="void(edit_example(\'' + list[i].id + '\'));">edit</button>';
             	delete_url = '<button onClick="void(delete_example(\'' + list[i].id + '\'));">delete</button>';
-    			$table.append('<tr><td>' + edit_url + '</td><td>' + delete_url + '</td><td>' + list[i].id + '</td><td>' + list[i].data + '</td></tr>');
+    			$table.append('<tr><td>' + edit_url + '</td><td>' + delete_url + '</td><td>' + list[i].id + '</td><td></td><td>' + list[i].name + '</td></tr>');
             }
     		$('#list').html($table);
     	});		
@@ -53,15 +52,35 @@
 		hide();
 		
 		var $table = $('<table border=0/>');    		
-		//$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10"></td></tr>');
-		$table.append('<tr><td>Nombre</td><td><input id="name_text" type="text" name="name" size="20"></td></tr>');
+		$table.append('<tr><td>Nombre</td><td><input id="name_text" type="text" name="name" size="30"></td></tr>');
 		$table.append('<tr><td>Dirección</td><td><input id="address_text" type="text" name="address" size="30"></td></tr>');
+		$table.append('<tr><td>Teléfono</td><td><input id="phone_text" type="text" name="phone" size="30"></td></tr>');
+		$table.append('<tr><td>E-mail</td><td><input id="email_text" type="text" name="email" size="30"></td></tr>');
+		$table.append('<tr><td>Código Postal</td><td><input id="postalcode_text" type="text" name="postalcode" size="30"></td></tr>');
+		$table.append('<tr><td>Ciudad</td><td><input id="city_text" type="text" name="city" size="30"></td></tr>');
+		$table.append('<tr><td>Longitud</td><td><input id="longitude_text" type="text" name="longitude" size="30"></td></tr>');
+		$table.append('<tr><td>Latitud</td><td><input id="latitude_text" type="text" name="latitude" size="30"></td></tr>');
+		$table.append('<tr><td>Página Web</td><td><input id="webpage_text" type="text" name="webpage" size="30"></td></tr>');
+		$table.append('<tr><td>Facebook</td><td><input id="facebook_text" type="text" name="facebook" size="30"></td></tr>');
+		$table.append('<tr><td>Twitter</td><td><input id="twitter_text" type="text" name="twitter" size="30"></td></tr>');
+		$table.append('<tr><td>Nombre Presidente/a</td><td><input id="presidentName_text" type="text" name="presidentName" size="30"></td></tr>');
+		$table.append('<tr><td>Móvil Presidente/a</td><td><input id="presidentPhone_text" type="text" name="presidentPhone" size="30"></td></tr>');
+		$table.append('<tr><td>E-mail Presidente/a</td><td><input id="presidentEmail_text" type="text" name="presidentEmail" size="30"></td></tr>');
+		$table.append('<tr><td>Nombre Secretario/a</td><td><input id="secretaryName_text" type="text" name="secretaryName" size="30"></td></tr>');
+		$table.append('<tr><td>Móvil Secretario/a</td><td><input id="secretaryPhone_text" type="text" name="secretaryPhone" size="30"></td></tr>');
+		$table.append('<tr><td>E-mail Secretario/a</td><td><input id="secretaryEmail_text" type="text" name="secretaryEmail" size="30"></td></tr>');
+		//$table.append('<tr><td>Activo</td><td><input id="active_text" type="text" name="active" size="30"></td></tr>');
 		$table.append('<tr><td colspan="2"><button id="submit_button">add example</button></td></tr>');	
 		$('#list').html($table);
 		
 		$('#submit_button').click(function() {
 			var url = "/associations/rest/add";
-			var posting = $.post(url, { name: $('#name_text').val(), address: $('#address_text').val() } );
+			var posting = $.post(url, { name: $('#name_text').val(), address: $('#address_text').val(), phone: $('#phone_text').val(), email: $('#email_text').val(), 
+				postalcode: $('#postalcode_text').val(), city: $('#city_text').val(), longitude: $('#longitude_text').val(), latitude: $('#latitude_text').val(), 
+				webpage: $('#webpage_text').val(), facebook: $('#facebook_text').val(), twitter: $('#twitter_text').val(), 
+				presidentName: $('#presidentName_text').val(), presidentPhone: $('#presidentPhone_text').val(), presidentEmail: $('#presidentEmail_text').val(), 
+				secretaryName: $('#secretaryName_text').val(), secretaryPhone: $('#secretaryPhone_text').val(), secretaryEmail: $('#secretaryEmail_text').val(), 
+				active: $('#active_text').val()} );
 			posting.done(function(data) {
 				alert(data);
 				get_list();
@@ -91,7 +110,24 @@
 
     		var $table = $('<table border=0/>');    		
     		$table.append('<tr><td>ID</td><td><input id="id_text" type="text" name="id" size="10" value="' + example.id + '" disabled></td></tr>');
-    		$table.append('<tr><td>Data</td><td><input id="data_text" type="text" name="data" size="20" value="' + example.data + '"></td></tr>');
+    		$table.append('<tr><td>Nombre</td><td><input id="name_text" type="text" name="name" size="30" value="' + example.name + '"></td></tr>');
+    		$table.append('<tr><td>Dirección</td><td><input id="address_text" type="text" name="address" size="30" value="' + example.address + '"></td></tr>');
+    		$table.append('<tr><td>Teléfono</td><td><input id="phone_text" type="text" name="phone" size="30" value="' + example.phone + '"></td></tr>');
+    		$table.append('<tr><td>E-mail</td><td><input id="email_text" type="text" name="email" size="30" value="' + example.email + '"></td></tr>');
+    		$table.append('<tr><td>Código Postal</td><td><input id="postalcode_text" type="text" name="postalcode" size="30" value="' + example.postalcode + '"></td></tr>');
+    		$table.append('<tr><td>Ciudad</td><td><input id="city_text" type="text" name="city" size="30" value="' + example.city + '"></td></tr>');
+    		$table.append('<tr><td>Longitud</td><td><input id="longitude_text" type="text" name="longitude" size="30" value="' + example.longitude + '"></td></tr>');
+    		$table.append('<tr><td>Latitud</td><td><input id="latitude_text" type="text" name="latitude" size="30" value="' + example.latitude + '"></td></tr>');
+    		$table.append('<tr><td>Página Web</td><td><input id="webpage_text" type="text" name="webpage" size="30" value="' + example.webpage + '"></td></tr>');
+    		$table.append('<tr><td>Facebook</td><td><input id="facebook_text" type="text" name="facebook" size="30" value="' + example.facebook + '"></td></tr>');
+    		$table.append('<tr><td>Twitter</td><td><input id="twitter_text" type="text" name="twitter" size="30" value="' + example.twitter + '"></td></tr>');
+    		$table.append('<tr><td>Nombre Presidente/a</td><td><input id="presidentName_text" type="text" name="presidentName" size="30" value="' + example.presidentName + '"></td></tr>');
+    		$table.append('<tr><td>Móvil Presidente/a</td><td><input id="presidentPhone_text" type="text" name="presidentPhone" size="30" value="' + example.presidentPhone + '"></td></tr>');
+    		$table.append('<tr><td>E-mail Presidente/a</td><td><input id="presidentEmail_text" type="text" name="presidentEmail" size="30" value="' + example.presidentEmail + '"></td></tr>');
+    		$table.append('<tr><td>Nombre Secretario/a</td><td><input id="secretaryName_text" type="text" name="secretaryName" size="30" value="' + example.secretaryName + '"></td></tr>');
+    		$table.append('<tr><td>Móvil Secretario/a</td><td><input id="secretaryPhone_text" type="text" name="secretaryPhone" size="30" value="' + example.secretaryPhone + '"></td></tr>');
+    		$table.append('<tr><td>E-mail Secretario/a</td><td><input id="secretaryEmail_text" type="text" name="secretaryEmail" size="30" value="' + example.secretaryEmail + '"></td></tr>');
+    		$table.append('<tr><td>Activo</td><td><input id="active_text" type="text" name="active" size="30" value="' + example.active + '"></td></tr>');
     		$table.append('<tr><td colspan="2"><button id="submit_button">update example</button></td></tr>');	
     		$('#list').html($table);
 
@@ -100,7 +136,12 @@
     			$.ajax({
     		    	url: edit_url,
     		    	type: 'PUT',
-    		    	data: { id: example.id, data: $('#data_text').val() },
+    		    	data: { id: example.id, name: $('#name_text').val(), address: $('#address_text').val(), phone: $('#phone_text').val(), email: $('#email_text').val(), 
+    					postalcode: $('#postalcode_text').val(), city: $('#city_text').val(), longitude: $('#longitude_text').val(), latitude: $('#latitude_text').val(), 
+    					webpage: $('#webpage_text').val(), facebook: $('#facebook_text').val(), twitter: $('#twitter_text').val(), 
+    					presidentName: $('#presidentName_text').val(), presidentPhone: $('#presidentPhone_text').val(), presidentEmail: $('#presidentEmail_text').val(), 
+    					secretaryName: $('#secretaryName_text').val(), secretaryPhone: $('#secretaryPhone_text').val(), secretaryEmail: $('#secretaryEmail_text').val(), 
+    					active: $('#active_text').val()},
     		    	success: function(result) {
     					alert(result);
     					get_list();		    	
@@ -136,6 +177,13 @@
     		<td><input type="text" id="search_text" size=20><button id="search_button">search</button></td>
     	</tr>
     </table>
-	<div id="list"></div>
+	<div id="list">
+	<!--
+	<div class="popup">
+	<div class="popup-name"></div>
+	<div class="popup-cart">
+	</div>
+	-->
+	</div>
 </body>
 </html>

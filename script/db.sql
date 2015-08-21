@@ -7,10 +7,10 @@
   database
 */
 
-drop database if exists association;
-create database association;
+drop database if exists associations;
+create database associations;
 
-use association;
+use associations;
 
 /*
   tables
@@ -19,15 +19,15 @@ use association;
 DROP TABLE IF EXISTS `association`;
 
 CREATE TABLE `association` (
-  `id` varchar(20) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `email` varchar(20) DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL,
   `postalcode` varchar(7) DEFAULT NULL,
   `city` varchar(20) DEFAULT NULL,
-  `longitude` float DEFAULT NULL,
-  `latitude` float DEFAULT NULL,
+  `longitude` varchar(30) DEFAULT NULL,
+  `latitude` varchar(30) DEFAULT NULL,
   `webpage` varchar(100) DEFAULT NULL,
   `facebook` varchar(30) DEFAULT NULL,
   `twitter` varchar(30) DEFAULT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `association` (
   `secretaryName` varchar(100) DEFAULT NULL,
   `secretaryEmail` varchar(20) DEFAULT NULL,
   `secretaryPhone` varchar(15) DEFAULT NULL,
-  `active` varchar(1) DEFAULT NULL,
+  `active` INT DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -61,9 +61,9 @@ CREATE TABLE `users` (
 
 drop user 'admin_assoc'@'localhost';
 create user 'admin_assoc'@'localhost' identified by 'assoc2015';
-grant all privileges on association.* to 'admin_assoc'@'localhost';
+grant all privileges on associations.* to 'admin_assoc'@'localhost';
 
 drop user 'user_assoc'@'localhost';
 create user 'user_assoc'@'localhost';
-grant select on cadastre.refs to 'user_assoc'@'localhost';
+grant select on associations.association to 'user_assoc'@'localhost';
 

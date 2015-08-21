@@ -20,10 +20,10 @@ public class DBManager {
 				ex.setId(rs.getInt("id"));
 				ex.setName(rs.getString("name"));
 				ex.setEmail(rs.getString("email"));
-				ex.setPhone(rs.getInt("phone"));
+				ex.setPhone(rs.getString("phone"));
 				ex.setCity(rs.getString("city"));
 				ex.setAddress(rs.getString("address"));
-				ex.setPostalcode(rs.getInt("postalcode"));
+				ex.setPostalcode(rs.getString("postalcode"));
 				ex.setLongitude(rs.getString("longitude"));
 				ex.setLatitude(rs.getString("latitude"));
 				ex.setWebpage(rs.getString("webpage"));
@@ -31,10 +31,10 @@ public class DBManager {
 				ex.setTwitter(rs.getString("twitter"));
 				ex.setPresidentName(rs.getString("presidentName"));
 				ex.setPresidentEmail(rs.getString("presidentEmail"));
-				ex.setPresidentPhone(rs.getInt("presidentPhone"));
+				ex.setPresidentPhone(rs.getString("presidentPhone"));
 				ex.setSecretaryName(rs.getString("secretaryName"));
 				ex.setSecretaryEmail(rs.getString("secretaryEmail"));
-				ex.setSecretaryPhone(rs.getInt("secretaryPhone"));
+				ex.setSecretaryPhone(rs.getString("secretaryPhone"));
 				ex.setActive(rs.getBoolean("active"));
 				examples.add(ex);
 			}
@@ -55,10 +55,10 @@ public class DBManager {
 				ex.setId(rs.getInt("id"));
 				ex.setName(rs.getString("name"));
 				ex.setEmail(rs.getString("email"));
-				ex.setPhone(rs.getInt("phone"));
+				ex.setPhone(rs.getString("phone"));
 				ex.setCity(rs.getString("city"));
 				ex.setAddress(rs.getString("address"));
-				ex.setPostalcode(rs.getInt("postalcode"));
+				ex.setPostalcode(rs.getString("postalcode"));
 				ex.setLongitude(rs.getString("longitude"));
 				ex.setLatitude(rs.getString("latitude"));
 				ex.setWebpage(rs.getString("webpage"));
@@ -66,10 +66,10 @@ public class DBManager {
 				ex.setTwitter(rs.getString("twitter"));
 				ex.setPresidentName(rs.getString("presidentName"));
 				ex.setPresidentEmail(rs.getString("presidentEmail"));
-				ex.setPresidentPhone(rs.getInt("presidentPhone"));
+				ex.setPresidentPhone(rs.getString("presidentPhone"));
 				ex.setSecretaryName(rs.getString("secretaryName"));
 				ex.setSecretaryEmail(rs.getString("secretaryEmail"));
-				ex.setSecretaryPhone(rs.getInt("secretaryPhone"));
+				ex.setSecretaryPhone(rs.getString("secretaryPhone"));
 				ex.setActive(rs.getBoolean("active"));
 				break;
 			}			
@@ -91,10 +91,10 @@ public class DBManager {
 				ex.setId(rs.getInt("id"));
 				ex.setName(rs.getString("name"));
 				ex.setEmail(rs.getString("email"));
-				ex.setPhone(rs.getInt("phone"));
+				ex.setPhone(rs.getString("phone"));
 				ex.setCity(rs.getString("city"));
 				ex.setAddress(rs.getString("address"));
-				ex.setPostalcode(rs.getInt("postalcode"));
+				ex.setPostalcode(rs.getString("postalcode"));
 				ex.setLongitude(rs.getString("longitude"));
 				ex.setLatitude(rs.getString("latitude"));
 				ex.setWebpage(rs.getString("webpage"));
@@ -102,10 +102,10 @@ public class DBManager {
 				ex.setTwitter(rs.getString("twitter"));
 				ex.setPresidentName(rs.getString("presidentName"));
 				ex.setPresidentEmail(rs.getString("presidentEmail"));
-				ex.setPresidentPhone(rs.getInt("presidentPhone"));
+				ex.setPresidentPhone(rs.getString("presidentPhone"));
 				ex.setSecretaryName(rs.getString("secretaryName"));
 				ex.setSecretaryEmail(rs.getString("secretaryEmail"));
-				ex.setSecretaryPhone(rs.getInt("secretaryPhone"));
+				ex.setSecretaryPhone(rs.getString("secretaryPhone"));
 				ex.setActive(rs.getBoolean("active"));
 				examples.add(ex);
 			}
@@ -118,28 +118,28 @@ public class DBManager {
 	
 	// add an example
 	public void addAssociation(Connection connection, Association example) throws Exception {	
-		String sql = "INSERT INTO association (id, name, email, phone, address, postalcode, city, longitude, latitude, webpage, facebook, twitter, presidentName, presidentEmail, presidentPhone, secretaryName, secretaryEmail, secretaryPhone, active) "
+		String sql = "INSERT INTO association (name, email, phone, address, postalcode, city, longitude, latitude, webpage, facebook, twitter, presidentName, presidentEmail, presidentPhone, secretaryName, secretaryEmail, secretaryPhone, active) "
 				+ "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = connection.prepareStatement(sql);
-		ps.setInt(1, example.getId());
-		ps.setString(2, example.getName());
-		ps.setString(3, example.getEmail());
-		ps.setInt(4, example.getPhone());
-		ps.setString(5, example.getAddress());
-		ps.setInt(6, example.getPostalcode());
-		ps.setString(7, example.getCity());
-		ps.setString(8, example.getLongitude());
-		ps.setString(9, example.getLatitude());
-		ps.setString(10, example.getWebpage());
-		ps.setString(11, example.getFacebook());
-		ps.setString(12, example.getTwitter());
-		ps.setString(13, example.getPresidentName());
-		ps.setString(14, example.getPresidentEmail());
-		ps.setInt(15, example.getPresidentPhone());
-		ps.setString(16, example.getSecretaryName());
-		ps.setString(17, example.getSecretaryEmail());
-		ps.setInt(18, example.getSecretaryPhone());
-		ps.setBoolean(19, example.isActive());
+		//ps.setInt(1, example.getId());
+		ps.setString(1, example.getName());
+		ps.setString(2, example.getEmail());
+		ps.setString(3, example.getPhone());
+		ps.setString(4, example.getAddress());
+		ps.setString(5, example.getPostalcode());
+		ps.setString(6, example.getCity());
+		ps.setString(7, example.getLongitude());
+		ps.setString(8, example.getLatitude());
+		ps.setString(9, example.getWebpage());
+		ps.setString(10, example.getFacebook());
+		ps.setString(11, example.getTwitter());
+		ps.setString(12, example.getPresidentName());
+		ps.setString(13, example.getPresidentEmail());
+		ps.setString(14, example.getPresidentPhone());
+		ps.setString(15, example.getSecretaryName());
+		ps.setString(16, example.getSecretaryEmail());
+		ps.setString(17, example.getSecretaryPhone());
+		ps.setBoolean(18, example.isActive());
 		ps.executeUpdate();
 	}
 	
@@ -158,7 +158,7 @@ public class DBManager {
 		ps.setInt(1, example.getId());
 		ps.setString(2, example.getPresidentName());
 		ps.setString(3, example.getPresidentEmail());
-		ps.setInt(4, example.getPresidentPhone());
+		ps.setString(4, example.getPresidentPhone());
 		
 		ps.executeUpdate();
 	}	
